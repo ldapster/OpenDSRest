@@ -1,2 +1,5 @@
-
 README for OpenDS RESTful support beta using Jersey and Grizzly.
+File layout for now:
+
+	- src the source files
+	- tests testng unit tests

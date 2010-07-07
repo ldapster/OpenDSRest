@@ -60,38 +60,16 @@ public class HTTPConnectionHandler extends
 
     private static final String CLASS_NAME =
          "org.opends.server.protocols.http.HTTPConnectionHandler";
-
     private static final String DEFAULT_FRIENDLY_NAME = "HTTP  Handler";
-
-    // Indicates whether this connection handler is enabled.
     private boolean enabled;
-
-    // The friendly name of this connection handler.
     final private String friendlyName;
-
-    // The unique name assigned to this connection handler.
     private String handlerName;
-
-    // The protocol used by this connection handler.
     private String protocol;
-
-    // The current configuration state.
     private HTTPConnectionHandlerCfg currentConfig;
-
-    // The port on which this connection handler should listen for
-    // requests.
     private int listenPort;
-
-    // The set of listeners for this connection handler.
     private List<HostPort> listeners;
-
-    // The set of statistics collected for this connection handler.
     private LDAPStatistics statTracker;
-
-    // The client connection monitor provider associated with this
-    // connection handler.
     private ClientConnectionMonitorProvider connMonitor;
-
     private static final String SSL_CONTEXT_INSTANCE_NAME = "TLS";
     final Map<String, String> initParams = new HashMap<String, String>();
     private static final ThreadLocal<ConnectionInfo> connInfo =
@@ -102,7 +80,6 @@ public class HTTPConnectionHandler extends
     private boolean isSSL = false;
     private SSLContext sslContext;
     private SSLConfig sslConfig;
-
     static IdentityMapper<?> identityMapper;
 
     private static URI getBaseURI() {
@@ -247,18 +224,12 @@ public class HTTPConnectionHandler extends
 
     @Override
     public LinkedHashMap<String, String> getAlerts() {
-        LinkedHashMap<String, String> alerts = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> alerts = 
+                               new LinkedHashMap<String, String>();
         alerts.put("HTTP Alert", " alert");
         return alerts;
     }
 
-    /**
-     * Retrieves the fully-qualified name of the Java class for this alert
-     * generator implementation.
-     *
-     * @return The fully-qualified name of the Java class for this alert
-     *         generator implementation.
-     */
     @Override
     public String getClassName() {
         return CLASS_NAME;

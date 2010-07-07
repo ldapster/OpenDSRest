@@ -1,5 +1,7 @@
-README for OpenDS RESTful support beta using Jersey and Grizzly.
-File layout for now:
+RESTFul API for OpenDS
 
-	- src the source files
-	- tests testng unit tests
+author: Mike Dugan
+
+Information
+
+More to come about that. Basically allows HTTP RESTful operations to an OpenDS server.

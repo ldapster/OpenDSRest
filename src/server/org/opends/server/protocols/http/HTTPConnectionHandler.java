@@ -58,7 +58,8 @@ public class HTTPConnectionHandler extends
         ConfigurationChangeListener<HTTPConnectionHandlerCfg>,
         ServerShutdownListener, AlertGenerator {
 
-    private static final String CLASS_NAME = "org.opends.server.protocols.http.HTTPConnectionHandler";
+    private static final String CLASS_NAME =
+         "org.opends.server.protocols.http.HTTPConnectionHandler";
 
     private static final String DEFAULT_FRIENDLY_NAME = "HTTP  Handler";
 
@@ -93,7 +94,8 @@ public class HTTPConnectionHandler extends
 
     private static final String SSL_CONTEXT_INSTANCE_NAME = "TLS";
     final Map<String, String> initParams = new HashMap<String, String>();
-    private static final ThreadLocal<ConnectionInfo> connInfo = new ThreadLocal<ConnectionInfo>();
+    private static final ThreadLocal<ConnectionInfo> connInfo =
+                                       new ThreadLocal<ConnectionInfo>();
     private final static String baseURL = "http:///openDSrest";
     private SelectorThread selectorThread;
     private final URI BASE_URI = getBaseURI();
@@ -177,7 +179,6 @@ public class HTTPConnectionHandler extends
         listenPort = config.getListenPort();
         DN identityMapperDN = config.getIdentityMapperDN();
         identityMapper = DirectoryServer.getIdentityMapper(identityMapperDN);
-        // Create and register monitors.
         statTracker = new LDAPStatistics(handlerName + " Statistics");
         DirectoryServer.registerMonitorProvider(statTracker);
         connMonitor = new ClientConnectionMonitorProvider(this);
@@ -200,10 +201,8 @@ public class HTTPConnectionHandler extends
             selectorThread.initEndpoint();
             selectorThread.startEndpoint();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             if (selectorThread.isRunning()) {
@@ -284,7 +283,6 @@ public class HTTPConnectionHandler extends
                 SSLselectorThread
                         .setSSLImplementation(new JSSEImplementation());
             } catch (ClassNotFoundException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
             selectorThread = SSLselectorThread;

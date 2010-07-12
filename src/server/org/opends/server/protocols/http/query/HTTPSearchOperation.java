@@ -420,7 +420,11 @@ public class HTTPSearchOperation implements SearchOperation {
 
     @Override
     public DN getAuthorizationDN() {
-        return clientConnection.getAuthenticationInfo().getAuthorizationDN();
+        if (clientConnection.getAuthenticationInfo().getAuthenticationEntry()
+                == null)
+            return DN.nullDN();
+        else
+           return clientConnection.getAuthenticationInfo().getAuthorizationDN();
     }
 
     @Override

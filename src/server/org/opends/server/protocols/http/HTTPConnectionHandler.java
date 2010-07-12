@@ -74,17 +74,12 @@ public class HTTPConnectionHandler extends
     final Map<String, String> initParams = new HashMap<String, String>();
     private static final ThreadLocal<ConnectionInfo> connInfo =
                                        new ThreadLocal<ConnectionInfo>();
-    private final static String baseURL = "http:///openDSrest";
+    private final static String RESOURCE_PATH = "/directory";
+    private final int DEFAULT_PORT = 80;
     private SelectorThread selectorThread;
-    private final URI BASE_URI = getBaseURI();
     private boolean isSSL = false;
     private SSLContext sslContext;
-    private SSLConfig sslConfig;
     static IdentityMapper<?> identityMapper;
-
-    private static URI getBaseURI() {
-        return UriBuilder.fromUri(baseURL).port(8081).build();
-    }
 
     public HTTPConnectionHandler() {
         this(new WorkQueueStrategy(), DEFAULT_FRIENDLY_NAME);
@@ -224,7 +219,7 @@ public class HTTPConnectionHandler extends
 
     @Override
     public LinkedHashMap<String, String> getAlerts() {
-        LinkedHashMap<String, String> alerts = 
+        LinkedHashMap<String, String> alerts =
                                new LinkedHashMap<String, String>();
         alerts.put("HTTP Alert", " alert");
         return alerts;
@@ -242,10 +237,10 @@ public class HTTPConnectionHandler extends
             adapter.addInitParameter(e.getKey(), e.getValue());
         }
         adapter.setServletInstance(getInstance(ServletContainer.class));
-        adapter.setContextPath(BASE_URI.getPath());
+        adapter.setContextPath(RESOURCE_PATH);
         if (adapter instanceof GrizzlyAdapter) {
             GrizzlyAdapter ga = adapter;
-            ga.setResourcesContextPath(BASE_URI.getRawPath());
+            ga.setResourcesContextPath(RESOURCE_PATH);
         }
         if (isSSL) {
             SSLSelectorThread SSLselectorThread = new SSLSelectorThread();

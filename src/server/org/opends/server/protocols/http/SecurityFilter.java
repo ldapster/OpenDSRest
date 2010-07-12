@@ -44,7 +44,8 @@ public class SecurityFilter implements ContainerRequestFilter {
         String authentication = request
                 .getHeaderValue(ContainerRequest.AUTHORIZATION);
         if (authentication == null) {
-            throw new WebApplicationException(400);
+           authInfo = new AuthenticationInfo();
+           return new User("","");
         }
         if (!authentication.startsWith("Basic ")) {
             return null;

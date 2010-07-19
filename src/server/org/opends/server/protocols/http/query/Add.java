@@ -28,7 +28,7 @@ public class Add {
     ConnectionInfo connInfo;
 
     @POST
-    public Response add1(@Context UriInfo uri, String content) {
+    public Response add(@Context UriInfo uri, String content) {
         Response response;
         try {
             JSONObject j = new JSONObject(content);

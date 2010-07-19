@@ -41,7 +41,7 @@ Download the JSWDK 1.0.1 from this page:
 
 http://java.sun.com/products/servlet/archive.html
 
-unzip and copy jars in jswdk-1.0.1/lib" to "opends/lib"
+unzip and servlet.jar in jswdk-1.0.1/lib" to "opends/lib"
 
 ===
 

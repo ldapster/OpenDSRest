@@ -67,6 +67,8 @@ ds-cfg-identity-mapper: cn=Exact Match,cn=Identity Mappers,cn=config
 
 Change the port if needed.
 
+Start server
+
 Add some entries with passwords:
 
 ldapmodify.bat -c -a  -D "cn=directory manager" -w password  -f ex.ldif

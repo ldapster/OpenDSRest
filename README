@@ -133,5 +133,46 @@ description: This is the description for Aaren Atp.
 
 Test using curl:
 
+=== 
+SEARCH
+
 curl -u user.0:password "http://localhost:8080/directory/search?base=dc=example,dc=com"
 {"dc=example,dc=com":{"dn":"dc=example,dc=com","objectclass":["domain","top"],"attributes":{"dc":"example"}}}
+
+curl -u user.0:password "http://localhost:8080/directory/search?base=dc=example,dc=com&scope=sub"
+...
+
+curl -u user.0:password "http://localhost:8080/directory/search?base=dc=example,dc=com&filter=(uid=fost*)&scope=one"
+...
+
+curl -u user.0:password "http://localhost:8080/directory/search?base=dc=example,dc=com&filter=(uid=fost*)&scope=sub&attrs=cn,sn"
+
+defaults:
+
+scope: base
+filter: (objectclass=*)
+attrs: all
+
+==
+DELETE
+
+curl -X DELETE -u user.5:password "http://localhost:8080/directory/uid=user.2,ou=people,dc=example,dc=com"
+
+== 
+ADD
+
+curl -v -H "Content-Type: application/json" -X POST -d @json.out2 -u user.5:password "http://localhost:8080/directory"
+
+cat json.out2:
+{"dn":"uid=user.555,ou=People,dc=example,dc=com",
+"objectclass":["person","inetorgperson","organizationalperson","top"],
+"attributes":[
+{"postalAddress":"Abagail Abadines$73160 Eleventh Street$Charlotte, NH  51997"},
+{"postalCode":"51997"},{"description":"This is the description for Abagail Abadines."},
+{"uid":"user.555"},{"userPassword":"password"},{"employeeNumber":"6"},{"initials":"AWA"},
+{"givenName":"Abagail"},{"pager":"+1 120 345 8065"},{"mobile":"+1 808 056 4376"},
+{"cn":"Abagail Abadines"},{"telephoneNumber":"+1 994 686 5918"},{"sn":"Abadines"},
+{"street":"73160 Eleventh Street"},
+{"homePhone":"+1 356 416 7060"},{"l":"Charlotte"},
+{"mail":"user.6@example.com"},{"st":"NH"}
+]}

@@ -1,15 +1,12 @@
 package org.opends.server.protocols.http.query;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -22,7 +19,7 @@ import org.opends.server.types.Entry;
 import com.sun.jersey.api.core.HttpContext;
 import com.sun.jersey.spi.container.ContainerRequest;
 
-@Path("/add")
+@Path("/")
 @Consumes("application/json")
 public class Add {
     @Context
@@ -31,7 +28,7 @@ public class Add {
     ConnectionInfo connInfo;
 
     @POST
-    public Response add(@Context UriInfo uri, String content) {
+    public Response add1(@Context UriInfo uri, String content) {
         Response response;
         try {
             JSONObject j = new JSONObject(content);

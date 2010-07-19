@@ -4,4 +4,45 @@ author: Mike Dugan
 
 Information
 
-More to come about that. Basically allows HTTP RESTful operations to an OpenDS server.
+HTTP RESTful operations to an OpenDS server.
+
+====
+Jersey Jars
+
+Download this zip from Jersey distribution:
+
+http://download.java.net/maven/2/com/sun/jersey/jersey-archive/1.3/jersey-archive-1.3.zip
+
+Unzip and copy all jars in "jersey-archive-1.3/lib" into "opends/lib" directory. Files
+are:
+	
+	asm-3.1.jar      
+	jersey-json-1.3.jar
+	jackson-core-asl-1.1.1.jar 
+	jersey-server-1.3.jar
+	jersey-client-1.3.jar      
+	jettison-1.1.jar
+	jersey-core-1.3.jar        
+	jsr311-api-1.1.1.jar
+
+====
+Grizzley jars
+
+Download grizzly embedded servelet container:
+
+http://download.java.net/maven/glassfish/com/sun/grizzly/grizzly-servlet-webserver/1.9.18-k/grizzly-servlet-webserver-1.9.18-k.jar
+
+Copy to "opends/lib" directory
+
+====
+Servlet jars
+
+Download the JSWDK 1.0.1 from this page:
+
+http://java.sun.com/products/servlet/archive.html
+
+unzip and copy jars in jswdk-1.0.1/lib" to "opends/lib"
+
+===
+
+Build OpenDS.

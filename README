@@ -46,3 +46,14 @@ unzip servlet.jar in jswdk-1.0.1/lib" to "opends/lib"
 ===
 
 Build OpenDS.
+
+===
+Configuration
+
+Start server:
+
+Add objectclass
+
+ldapmodify.bat -c -a -p 4444 -D "cn=directory manager" -w password -X --useSSL -f "http_schema.ldif"
+
+Stop server

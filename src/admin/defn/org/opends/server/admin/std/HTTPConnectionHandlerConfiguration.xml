@@ -12,7 +12,7 @@
   <adm:description>
     It provides full support for HTTP.
   </adm:description>
-  <adm:profile name="http">
+  <adm:profile name="ldap">
     <ldap:object-class>
       <ldap:name>ds-cfg-http-connection-handler</ldap:name>
       <ldap:superior>ds-cfg-connection-handler</ldap:superior>
@@ -144,7 +144,7 @@
         </adm:constraint>
       </adm:aggregation>
     </adm:syntax>
-    <adm:profile name="http">
+    <adm:profile name="ldap">
       <ldap:attribute>
         <ldap:name>ds-cfg-identity-mapper</ldap:name>
       </ldap:attribute>

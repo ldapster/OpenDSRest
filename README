@@ -34,14 +34,6 @@ http://download.java.net/maven/glassfish/com/sun/grizzly/grizzly-servlet-webserv
 
 Copy to "opends/lib" directory
 
-====
-Servlet jars
-
-Download the JSWDK 1.0.1 from this page:
-
-http://java.sun.com/products/servlet/archive.html
-
-unzip servlet.jar in jswdk-1.0.1/lib" to "opends/lib"
 
 ===
 
@@ -52,8 +44,94 @@ Configuration
 
 Start server:
 
-Add objectclass
+Add objectclass found in schema/http_schema.ldif
 
-ldapmodify.bat -c -a -p 4444 -D "cn=directory manager" -w password -X --useSSL -f "http_schema.ldif"
+ldapmodify.bat -c -a -p 4444 -D "cn=directory manager" -w password -X --useSSL -f http_schema.ldif
 
 Stop server
+
+=== 
+Non-SSL
+
+Add this stanza after LDAPS stanza config.ldif:
+
+dn: cn=HTTP Connection Handler,cn=Connection Handlers,cn=config
+objectClass: top
+objectClass: ds-cfg-connection-handler
+objectClass: ds-cfg-http-connection-handler
+cn: HTTP Connection Handler
+ds-cfg-java-class: org.opends.server.protocols.http.HTTPConnectionHandler
+ds-cfg-enabled: true
+ds-cfg-listen-port: 8080
+ds-cfg-identity-mapper: cn=Exact Match,cn=Identity Mappers,cn=config
+
+Change the port if needed.
+
+Add some entries with passwords:
+
+ldapmodify.bat -c -a  -D "cn=directory manager" -w password  -f ex.ldif
+
+head ex.ldif
+
+dn: dc=example,dc=com
+objectClass: top
+objectClass: domain
+dc: example
+
+dn: ou=People,dc=example,dc=com
+objectClass: top
+objectClass: organizationalunit
+ou: People
+
+dn: uid=user.0,ou=People,dc=example,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+givenName: Aaccf
+sn: Amar
+cn: Aaccf Amar
+initials: ASA
+employeeNumber: 0
+uid: user.0
+mail: user.0@example.com
+userPassword: password
+telephoneNumber: +1 294 867 8160
+homePhone: +1 078 441 7013
+pager: +1 973 405 8217
+mobile: +1 260 148 0630
+street: 24672 Davis Street
+l: Flint
+st: TX
+postalCode: 43306
+postalAddress: Aaccf Amar$24672 Davis Street$Flint, TX  43306
+description: This is the description for Aaccf Amar.
+
+dn: uid=user.1,ou=People,dc=example,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+givenName: Aaren
+sn: Atp
+cn: Aaren Atp
+initials: ALA
+employeeNumber: 1
+uid: user.1
+mail: user.1@example.com
+userPassword: password
+telephoneNumber: +1 776 003 5757
+homePhone: +1 405 589 1050
+pager: +1 557 202 7946
+mobile: +1 665 568 0659
+street: 51093 Green Street
+l: Flint
+st: CT
+postalCode: 20660
+postalAddress: Aaren Atp$51093 Green Street$Flint, CT  20660
+description: This is the description for Aaren Atp.
+
+Test using curl:
+
+curl -u user.0:password "http://localhost:8080/directory/search?base=dc=example,dc=com"
+{"dc=example,dc=com":{"dn":"dc=example,dc=com","objectclass":["domain","top"],"attributes":{"dc":"example"}}}

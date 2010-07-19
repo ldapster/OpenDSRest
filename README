@@ -101,7 +101,7 @@ mail: user.0@example.com
 userPassword: password
 telephoneNumber: +1 294 867 8160
 homePhone: +1 078 441 7013
-pager: +1 973 405 8217
+pager: +1 973 405 8217 begin_of_the_skype_highlighting              +1 973 405 8217      end_of_the_skype_highlighting
 mobile: +1 260 148 0630
 street: 24672 Davis Street
 l: Flint
@@ -169,7 +169,7 @@ ADD
 
 Assumes there is a uid=user.5 entry in the directory and that user has add ACI.
 
-curl -v -H "Content-Type: application/json" -X POST -d @json.out2 -u user.5:password "http://localhost:8080/directory"
+curl -v -H "Content-Type: application/json" -X POST -d @json.out2 -u user.5:password "http://localhost:8080/directory/add"
 
 cat json.out2:
 {"dn":"uid=user.555,ou=People,dc=example,dc=com",
@@ -178,7 +178,7 @@ cat json.out2:
 {"postalAddress":"Abagail Abadines$73160 Eleventh Street$Charlotte, NH  51997"},
 {"postalCode":"51997"},{"description":"This is the description for Abagail Abadines."},
 {"uid":"user.555"},{"userPassword":"password"},{"employeeNumber":"6"},{"initials":"AWA"},
-{"givenName":"Abagail"},{"pager":"+1 120 345 8065"},{"mobile":"+1 808 056 4376"},
+{"givenName":"Abagail"},{"pager":"+1 120 345 8065"},{"mobile":"+1 808 056 4376 begin_of_the_skype_highlighting              +1 808 056 4376      end_of_the_skype_highlighting"},
 {"cn":"Abagail Abadines"},{"telephoneNumber":"+1 994 686 5918"},{"sn":"Abadines"},
 {"street":"73160 Eleventh Street"},
 {"homePhone":"+1 356 416 7060"},{"l":"Charlotte"},

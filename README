@@ -133,6 +133,8 @@ postalCode: 20660
 postalAddress: Aaren Atp$51093 Green Street$Flint, CT  20660
 description: This is the description for Aaren Atp.
 
+...
+
 Test using curl:
 
 === 
@@ -157,11 +159,14 @@ attrs: all
 
 ==
 DELETE
+Assumes there is a uid=user.5 entry in the directory and that user has delete ACI.
 
 curl -X DELETE -u user.5:password "http://localhost:8080/directory/uid=user.2,ou=people,dc=example,dc=com"
 
 == 
 ADD
+
+Assumes there is a uid=user.5 entry in the directory and that user has add ACI.
 
 curl -v -H "Content-Type: application/json" -X POST -d @json.out2 -u user.5:password "http://localhost:8080/directory"
 
@@ -178,3 +183,6 @@ cat json.out2:
 {"homePhone":"+1 356 416 7060"},{"l":"Charlotte"},
 {"mail":"user.6@example.com"},{"st":"NH"}
 ]}
+
+==
+Modify in progress.

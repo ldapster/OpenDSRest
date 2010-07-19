@@ -19,7 +19,7 @@ import org.opends.server.types.Entry;
 import com.sun.jersey.api.core.HttpContext;
 import com.sun.jersey.spi.container.ContainerRequest;
 
-@Path("/")
+@Path("/add")
 @Consumes("application/json")
 public class Add {
     @Context

@@ -28,8 +28,7 @@ Files are:
 
 Download grizzly embedded servlet container:
 
-http://download.java.net/maven/glassfish/com/sun/grizzly/grizzly-servlet-webserver/1.9.18-k/
-grizzly-servlet-webserver-1.9.18-k.jar
+http://download.java.net/maven/glassfish/com/sun/grizzly/grizzly-servlet-webserver/1.9.18-k/grizzly-servlet-webserver-1.9.18-k.jar
 
 Copy to "opends/lib" source directory
 

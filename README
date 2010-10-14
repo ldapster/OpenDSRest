@@ -1,20 +1,19 @@
-RESTFul API for OpenDS.
+RESTFul API for handler for OpenDS.
 
-author: Mike Dugan
+Author: Mike Dugan
 
-Information
+BUILDING
 
-HTTP RESTful operations to an OpenDS server.
+0. Download, build and test OpenDS.
 
-====
-Jersey Jars
+1. Download Jersey Jars.
 
 Download this zip from Jersey distribution:
 
 http://download.java.net/maven/2/com/sun/jersey/jersey-archive/1.3/jersey-archive-1.3.zip
 
-Unzip and copy all jars in "jersey-archive-1.3/lib" into "opends/lib" directory. Files
-are:
+Unzip and copy all jars in "jersey-archive-1.3/lib" into "opends/lib" source directory.
+Files are:
 	
 	asm-3.1.jar      
 	jersey-json-1.3.jar
@@ -25,36 +24,28 @@ are:
 	jersey-core-1.3.jar        
 	jsr311-api-1.1.1.jar
 
-====
-Grizzley jars
+2. Download Grizzley Jar.
 
 Download grizzly embedded servlet container:
 
 http://download.java.net/maven/glassfish/com/sun/grizzly/grizzly-servlet-webserver/1.9.18-k/
 grizzly-servlet-webserver-1.9.18-k.jar
 
-Copy to "opends/lib" directory
+Copy to "opends/lib" source directory
 
+3. Re-build OpenDS and start server.
 
-===
+CONFIGURATION
 
-Build OpenDS.
-
-===
-Configuration
-
-Start server:
-
-Add objectclass found in schema/http_schema.ldif
+1. Add objectclass found in schema/http_schema.ldif
 
 ldapmodify.bat -c -a -p 4444 -D "cn=directory manager" -w password -X --useSSL -f http_schema.ldif
 
 Stop server
+ 
+1. Non-SSL configuration of OpenDS RestFUL API handler.
 
-=== 
-Non-SSL
-
-Add this stanza after LDAPS stanza config.ldif:
+Open an editor and add this stanza after LDAPS stanza config.ldif:
 
 dn: cn=HTTP Connection Handler,cn=Connection Handlers,cn=config
 objectClass: top
@@ -66,11 +57,11 @@ ds-cfg-enabled: true
 ds-cfg-listen-port: 8080
 ds-cfg-identity-mapper: cn=Exact Match,cn=Identity Mappers,cn=config
 
-Change the port if needed.
+Note: change the port if needed.
 
-Start server
+2. Re-start the server
 
-Add some entries with passwords:
+3. Test. Add some entries with passwords:
 
 ldapmodify.bat -c -a  -D "cn=directory manager" -w password  -f ex.ldif
 
@@ -136,38 +127,43 @@ description: This is the description for Aaren Atp.
 
 ...
 
-Test using curl:
+Download a copy of cURL from: http://curl.haxx.se/download.html
 
-=== 
-SEARCH
+SEARCHING
 
+Using the default values:
 curl -u user.0:password "http://localhost:8080/directory/search?base=dc=example,dc=com"
 {"dc=example,dc=com":{"dn":"dc=example,dc=com","objectclass":["domain","top"],"attributes":{"dc":"example"}}}
 
+Specifying a scope of sub:
 curl -u user.0:password "http://localhost:8080/directory/search?base=dc=example,dc=com&scope=sub"
 ...
 
+Specifying a scope of one and filter of (uid=fost*):
 curl -u user.0:password "http://localhost:8080/directory/search?base=dc=example,dc=com&filter=(uid=fost*)&scope=one"
 ...
 
+Specifying a scope of one, filter of (uid=fost*) and return cn, sn attributes:
 curl -u user.0:password "http://localhost:8080/directory/search?base=dc=example,dc=com&filter=(uid=fost*)&scope=sub&attrs=cn,sn"
 
-defaults:
+The default are the same as ldapsearch:
 
 scope: base
 filter: (objectclass=*)
 attrs: all
 
-==
-DELETE
-Assumes there is a uid=user.5 entry in the directory and that user has delete ACI.
+DELETE an entry:
+
+Assumes there is a uid=user.5 entry in the directory and that user has delete ACI. The delete ACI is
+important.
 
 curl -X DELETE -u user.5:password "http://localhost:8080/directory/uid=user.2,ou=people,dc=example,dc=com"
 
 == 
-ADD
-
-Assumes there is a uid=user.5 entry in the directory and that user has add ACI.
+ADD an entry in JSON format to the directory using curl.
+	- Assumes there is a uid=user.5 entry in the directory and that user has add ACI.
+	- Again the add ACI is important. 
+	- The file json.out2 contains the json format of the entry.
 
 curl -v -H "Content-Type: application/json" -X POST -d @json.out2 -u user.5:password "http://localhost:8080/directory/add"
 
@@ -189,4 +185,4 @@ cat json.out2:
 Modify in progress.
 
 ==
-SSL supported need directions
+SSL is supported, directions are being written.

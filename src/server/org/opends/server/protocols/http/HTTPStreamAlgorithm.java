@@ -7,9 +7,13 @@ import java.nio.channels.SocketChannel;
 
 import com.sun.grizzly.standalone.StaticStreamAlgorithm;
 
-public class HTTPStrAlgorithm extends StaticStreamAlgorithm {
+/*
+ * This class is needed to grab the socket channel instance and give it
+ * back to the HTTP handler.
+ */
+public class HTTPStreamAlgorithm extends StaticStreamAlgorithm {
 
-    public HTTPStrAlgorithm() {
+    public HTTPStreamAlgorithm() {
         super();
     }
 

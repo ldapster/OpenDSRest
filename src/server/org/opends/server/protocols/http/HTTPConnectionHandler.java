@@ -72,8 +72,12 @@ public class HTTPConnectionHandler extends
     private ClientConnectionMonitorProvider connMonitor;
     private static final String SSL_CONTEXT_INSTANCE_NAME = "TLS";
     final Map<String, String> initParams = new HashMap<String, String>();
+    
+    //Used to store connection information for each connection. This works
+    //because each HTTP connection is tied to a thread, unlike LDAP.
     private static final ThreadLocal<ConnectionInfo> connInfo =
                                        new ThreadLocal<ConnectionInfo>();
+    
     private final static String RESOURCE_PATH = "/directory";
     private final int DEFAULT_PORT = 80;
     private SelectorThread selectorThread;
@@ -254,7 +258,9 @@ public class HTTPConnectionHandler extends
             selectorThread = SSLselectorThread;
         } else
             selectorThread = new SelectorThread();
-        selectorThread.setAlgorithmClassName(HTTPStrAlgorithm.class.getName());
+        //Set HTTP stream algorithm class to grab socket channel info
+        //from grizzly.
+        selectorThread.setAlgorithmClassName(HTTPStreamAlgorithm.class.getName());
         selectorThread.setPort(listenPort);
         selectorThread.setAdapter(adapter);
         return selectorThread;
